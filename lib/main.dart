@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:english_words/english_words.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,12 +19,15 @@ class MyApp extends StatelessWidget {
 class NewRoute extends StatelessWidget {
   @override
   Widget build (BuildContext context) {
+    final wordPair = new WordPair.random();
+
     return Scaffold(
+      
       appBar: AppBar(
         title: Text('test new route'),
       ),
       body: Center(
-        child: Text('this is new route'),
+        child: Text('this is new route $wordPair'),
       ),
     );
   }
