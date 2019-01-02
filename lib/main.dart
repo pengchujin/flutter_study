@@ -16,31 +16,79 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NewRoute extends StatelessWidget {
+class Mycard extends StatelessWidget {
+  final Widget icon;
+  final Widget titile;
+  
+  Mycard({this.icon, this.titile});
   @override
-  Widget build (BuildContext context) {
-    final wordPair = new WordPair.random();
-    return Scaffold(  
-      appBar: AppBar(
-        title: Text('Using Theme'),
-      ),
-      body: new Container(
-        decoration: new BoxDecoration(color: Colors.white10),
-        child: new Center(
-          child: new Container(
-            color: Theme.of(context).accentColor,
-            child: new Text(
-            '$wordPair',
-            style: Theme.of(context).textTheme.title,
-            ),
+  Widget build(BuildContext context) {
+    return new Container(
+      padding: const EdgeInsets.only(bottom: 1.0),
+      child: new Card(
+        child: new Container(
+          padding: const EdgeInsets.all(20.0),
+          child: new Column(
+            children: <Widget>[this.titile, this.icon],
           ),
         ),
       ),
-      floatingActionButton: new Theme(
-        data: Theme.of(context).copyWith(accentColor: Colors.pinkAccent),
-        child: new FloatingActionButton(
-          onPressed: null,
-          child: new Icon(Icons.add),
+    );
+  }
+}
+
+class NewRoute extends StatelessWidget {
+  @override
+  Widget build (BuildContext context) {
+    final double myTextSize = 30.0;
+    final double myIconSize = 40.0;
+    final TextStyle myTextStyle = new TextStyle(color: Colors.grey, fontSize: myTextSize);
+    var column  = new Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        new Mycard(
+          titile: new Text(
+            "Favorite",
+            style: myTextStyle,
+          ),
+          icon: 
+            new Icon(Icons.favorite, size: myIconSize, color: Colors.red),
+        ),
+        new Mycard(
+          titile: new Text(
+            "Airport Shuttle",
+            style: myTextStyle,
+          ),
+          icon: 
+            new Icon(Icons.airport_shuttle, size: myIconSize, color: Colors.blueGrey),
+        ),
+        new Mycard(
+          titile: new Text(
+            "Alarm",
+            style: myTextStyle,
+          ),
+          icon: 
+            new Icon(Icons.alarm, size: myIconSize, color: Colors.blueGrey),
+        ),
+        new Mycard(
+          titile: new Text(
+            "Done",
+            style: myTextStyle,
+          ),
+          icon: 
+            new Icon(Icons.done, size: myIconSize, color: Colors.green),
+        ),
+        
+      ],
+    );
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Stateless Widget"),
+      ),
+      body: new Container(
+        padding: const EdgeInsets.only(bottom: 2.0),
+        child: new Center(
+          child: new SingleChildScrollView(child: column),
         ),
       ),
     );
