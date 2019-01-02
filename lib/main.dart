@@ -20,14 +20,28 @@ class NewRoute extends StatelessWidget {
   @override
   Widget build (BuildContext context) {
     final wordPair = new WordPair.random();
-
-    return Scaffold(
-      
+    return Scaffold(  
       appBar: AppBar(
-        title: Text('test new route'),
+        title: Text('Using Theme'),
       ),
-      body: Center(
-        child: Text('this is new route $wordPair'),
+      body: new Container(
+        decoration: new BoxDecoration(color: Colors.white10),
+        child: new Center(
+          child: new Container(
+            color: Theme.of(context).accentColor,
+            child: new Text(
+            '$wordPair',
+            style: Theme.of(context).textTheme.title,
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: new Theme(
+        data: Theme.of(context).copyWith(accentColor: Colors.pinkAccent),
+        child: new FloatingActionButton(
+          onPressed: null,
+          child: new Icon(Icons.add),
+        ),
       ),
     );
   }
