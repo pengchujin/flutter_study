@@ -116,8 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar:  new AppBar(
         title: new Text(widget.title),
       ),
-      body: new Center(
-        child: new Column(
+      body: new Container(
+        child: new Center(
+          child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
@@ -137,12 +138,19 @@ class _MyHomePageState extends State<MyHomePage> {
               )
           ],
         ),
+        ),
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage('assets/img/bg1.jpg'),
+            fit:  BoxFit.cover)),
       ),
+      
       floatingActionButton: new FloatingActionButton(
       onPressed: _incrementCounter,
       tooltip: 'Increment',
       child: new Icon(Icons.add),
       ),
+      
     );
 
   }
