@@ -1,8 +1,11 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
 // import 'package:english_words/english_words.dart';
 void main() => runApp(new MyApp());
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -147,7 +150,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   return new JsonApp();
                 }));
               },
-              )
+              // MyGetHttpData
+              ),
+                FlatButton(
+              child: Text('open json example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new MyGetHttpData();
+                }));
+              },
+              // MyGetHttpData
+              ),
           ],
         ),
         ),
@@ -174,7 +189,7 @@ class JsonApp extends StatefulWidget {
   MyAppState createState() => new MyAppState();
 }
 
-
+// state Local Json 
 class MyAppState extends State<JsonApp> {
   List data;
   @override 
@@ -219,5 +234,62 @@ class MyAppState extends State<JsonApp> {
         ),
       )
     );
+  }
+}
+
+
+// using http get 
+class MyGetHttpData extends StatefulWidget {
+  @override
+  MyGetHttpDataState createState() => MyGetHttpDataState();
+}
+
+class MyGetHttpDataState extends State<MyGetHttpData> {
+  final String url = "https://swapi.co/api/people";
+  List data;
+  Future<String> getJSONData() async {
+    var response = await http.get(
+      Uri.encodeFull(url),
+      headers: {"Accept": "application/json"});
+    print(response.body);
+    setState(() {
+          var dataConverteToJSON = json.decode(response.body);
+          data = dataConverteToJSON['results'];
+        });
+    return "Successfull";
+  }
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Retrieve JSON Data via HTTP GET"),
+      ),
+      body: new ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Container(
+            child: new Center(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  new Card(child: new Container(
+                    child: new Text(
+                      data[index]['name'],
+                      style: new TextStyle(fontSize: 20.0, color: Colors.lightBlueAccent),
+                    ),
+                    padding: const EdgeInsets.all(15.0),
+                  ),)
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+  @override
+  void initState() {
+    super.initState();
+    this.getJSONData();
   }
 }
