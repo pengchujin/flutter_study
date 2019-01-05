@@ -153,12 +153,23 @@ class _MyHomePageState extends State<MyHomePage> {
               // MyGetHttpData
               ),
                 FlatButton(
-              child: Text('open json example'),
+              child: Text('open httpGet example'),
               textColor: Colors.blue,
               onPressed: () {
                 Navigator.push(context, new MaterialPageRoute(builder: (context)
                 {
                   return new MyGetHttpData();
+                }));
+              },
+              // MyGetHttpData
+              ),
+               FlatButton(
+              child: Text('open alter example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new AlterHome();
                 }));
               },
               // MyGetHttpData
@@ -291,5 +302,37 @@ class MyGetHttpDataState extends State<MyGetHttpData> {
   void initState() {
     super.initState();
     this.getJSONData();
+  }
+}
+
+class AlterHome extends StatefulWidget {
+  @override
+  AlertClass createState() => new AlertClass();
+} 
+
+class AlertClass extends State<AlterHome> {
+  AlertDialog dialog = new AlertDialog(
+    content: new Text(
+      "Hello World",
+      style: new TextStyle(fontSize: 30.0),
+    )
+  );
+  
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Using Alter Dialog"),
+      ),
+      body: new Container(
+        child: new Center(
+          child: new RaisedButton(
+            child: new Text('Hi to alert!'),
+            onPressed: (){
+              showDialog(context: context, child: dialog);
+            },
+          ),
+        ),
+      )
+    );
   }
 }
