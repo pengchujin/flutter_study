@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:hello_world/tabs/first.dart';
+import 'package:hello_world/tabs/second.dart';
+import 'package:hello_world/tabs/third.dart';
 // import 'package:english_words/english_words.dart';
 void main() => runApp(new MyApp());
 
@@ -181,6 +184,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(context, new MaterialPageRoute(builder: (context)
                 {
                   return new StepHome();
+                }));
+              },
+              // MyGetHttpData
+              ),
+              FlatButton(
+              child: Text('Tab example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new TabHome();
                 }));
               },
               // MyGetHttpData
@@ -414,4 +428,58 @@ class StepState extends State<StepHome> {
     );
   }
   
+}
+
+class TabHome extends StatefulWidget{
+  @override
+  TabState createState() => new TabState();
+}
+
+class TabState extends State<TabHome> with SingleTickerProviderStateMixin{
+  TabController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(length: 3, vsync: this);
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  TabBar getTabBar() {
+    return new TabBar(
+      tabs: <Tab>[
+        new Tab(
+          icon: new Icon(Icons.favorite),
+        ),
+        new Tab(
+          icon: new Icon(Icons.adb),
+        ),
+        new Tab(
+          icon: new Icon(Icons.airport_shuttle),
+        )
+      ],
+      controller: controller,
+    );
+  }
+  TabBarView getTabBarView(var tabs) {
+    return new TabBarView(
+      children: tabs,
+      controller: controller,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Using tabs"),
+        backgroundColor: Colors.blue,
+        bottom: getTabBar(),
+      ),
+      body: getTabBarView(<Widget>[new First(), new Second(), new Third()]),
+    );
+  }
 }
