@@ -174,6 +174,17 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               // MyGetHttpData
               ),
+              FlatButton(
+              child: Text('Step example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new StepHome();
+                }));
+              },
+              // MyGetHttpData
+              ),
           ],
         ),
         ),
@@ -335,4 +346,72 @@ class AlertClass extends State<AlterHome> {
       )
     );
   }
+}
+
+class StepHome extends StatefulWidget {
+  @override
+  StepState createState() => new StepState();
+}
+
+class StepState extends State<StepHome> {
+  int current_step = 0;
+  List<Step> my_steps = [
+    new Step(
+      title: new Text("Step 1"),
+      content: new Text("Hello!"),
+      isActive: true
+    ),
+    new Step(
+      title: new Text("Step 2"),
+      content: new Text("World!"),
+      isActive: true),
+    new Step(
+      title: new Text("Step 3"),
+      content: new Text("Hello World!"),
+      isActive: true
+    )
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Simple Material App"),
+      ),
+      body: new Container(
+        child: new Stepper(
+          currentStep: this.current_step,
+          steps: my_steps,
+          type: StepperType.vertical,
+          onStepTapped: (step) {
+            setState(() {
+                          current_step = step;
+                        });
+            print("oneStepTapped: " + step.toString());
+          },
+          onStepCancel: () {
+            setState(() {
+                          if(current_step > 0){
+                            current_step = current_step -1;
+                          } else {
+                            current_step = 0;
+                          }
+                        });
+            print("oneStepCancle: " + current_step.toString());
+          },
+          onStepContinue: () {
+            setState(() {
+                          if(current_step < my_steps.length -1 ) {
+                            current_step = current_step + 1;
+                          } else {
+                            current_step = 0;
+                          }
+                        });
+            print("onStepContiue: " + current_step.toString());
+          },
+        ),
+      ),
+    );
+  }
+  
 }
