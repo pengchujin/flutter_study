@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:hello_world/tabs/first.dart';
 import 'package:hello_world/tabs/second.dart';
 import 'package:hello_world/tabs/third.dart';
+import './utils.dart' as utils;
 // import 'package:english_words/english_words.dart';
 void main() => runApp(new MyApp());
 
@@ -197,8 +198,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   return new TabHome();
                 }));
               },
+              // GradientHome
+              ),
+              FlatButton(
+              child: Text('Gradient example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new GradientHome();
+                }));
+              },
               // MyGetHttpData
               ),
+              // GradientHome
           ],
         ),
         ),
@@ -482,4 +495,30 @@ class TabState extends State<TabHome> with SingleTickerProviderStateMixin{
       body: getTabBarView(<Widget>[new First(), new Second(), new Third()]),
     );
   }
+}
+
+
+class GradientHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: "Using Gradient",
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Using Gradient"),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new Text(
+              "Hello World!",
+              style: new TextStyle(color: Colors.white)
+            ),
+          ),
+          decoration: new BoxDecoration(
+            gradient: utils.getCustomGradient()
+          ),
+        ),
+      ),
+    );
+  }  
 }
