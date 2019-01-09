@@ -7,6 +7,7 @@ import 'package:hello_world/tabs/first.dart';
 import 'package:hello_world/tabs/second.dart';
 import 'package:hello_world/tabs/third.dart';
 import './utils.dart' as utils;
+import 'package:hello_world/gridview.dart';
 // import 'package:english_words/english_words.dart';
 void main() => runApp(new MyApp());
 
@@ -211,8 +212,18 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               // MyGetHttpData
               ),
-              // GradientHome
-              // MyButton
+              // GridHome
+              FlatButton(
+              child: Text('GridHome example'),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(context, new MaterialPageRoute(builder: (context)
+                {
+                  return new GridHome();
+                }));
+              },
+              // MyGetHttpData
+              ),
               FlatButton(
               child: Text('ContactPage example'),
               textColor: Colors.blue,
@@ -571,6 +582,22 @@ class MyButton extends StatelessWidget {
          ),
          ));
      },
+    );
+  }
+}
+
+class GridHome extends StatelessWidget {
+  final MyGridView myGridView = new MyGridView();
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text("GridView Example"),
+        ),
+        body: myGridView.build(),
+      ),
     );
   }
 }
